@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GMI2J3_Projekt;
-public enum QuizType
+public interface IFileReader
 {
-    Practice,
-    Test
+    string ReadAllText(string path);
 }

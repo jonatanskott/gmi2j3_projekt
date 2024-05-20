@@ -1,5 +1,5 @@
 ﻿
-using GMI2J3_Projekt.Interfaces;
+using GMI2J3_Projekt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +22,11 @@ public class QuestionProvider : IQuestionProvider
     // Gets a set number of questions with full information. Used for practice quiz
     public QuestionSet<PracticeQuestion> GetFullQuestionSet(int num, string unit = "")
     {
+        if(num > 20)
+        {
+            throw new Exception("Too many questions requested");
+        }
+
         ICollection<PracticeQuestion> questions = _questionReader.GetQuestions();
 
         List<PracticeQuestion> questionList = new List<PracticeQuestion>();
@@ -45,6 +50,11 @@ public class QuestionProvider : IQuestionProvider
     // Gets a set number of questions with only the core information, no correct answers provided. Used for test quiz
     public QuestionSet<TestQuestion> GetCoreQuestionSet(int num, string unit = "")
     {
+        if(num > 20)
+        {
+            throw new Exception("Too many questions requested");
+        }
+
         ICollection<PracticeQuestion> questions = _questionReader.GetQuestions();
 
         List<TestQuestion> questionList = new List<TestQuestion>();

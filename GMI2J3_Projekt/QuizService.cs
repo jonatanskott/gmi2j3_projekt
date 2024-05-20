@@ -1,4 +1,4 @@
-﻿using GMI2J3_Projekt.Interfaces;
+﻿using GMI2J3_Projekt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +16,12 @@ internal class QuizService : IQuizService
         _testEvaluator = testEvaluator;
     }
 
-    public QuestionSet<TestQuestion> StartTestQuiz(int numberOfQuestions, string unit="")
+    public QuestionSet<TestQuestion> StartTestQuiz(int numberOfQuestions, string? unit="")
     {
+        if (unit == null)
+        {
+            return _questionProvider.GetCoreQuestionSet(numberOfQuestions);
+        }
         return _questionProvider.GetCoreQuestionSet(numberOfQuestions, unit);
     }
     public QuestionSet<PracticeQuestion> StartPracticeQuiz(int numberOfQuestions, string unit="")

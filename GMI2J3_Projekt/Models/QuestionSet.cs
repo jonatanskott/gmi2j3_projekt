@@ -9,12 +9,10 @@ public class QuestionSet<T> where T : IQuestion
 {
     public ICollection<T> Questions { get; private set; }
     public Guid QuestionContainerId { get; private set; }
-    public QuizType Type { get; private set; }
 
     public QuestionSet(List<T> questions, Guid questionContainerId)
     {
         Questions = questions;
         QuestionContainerId = questionContainerId;
-        Type = QuizType.Practice;
     }
 }

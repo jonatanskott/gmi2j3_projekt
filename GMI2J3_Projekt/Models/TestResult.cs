@@ -20,6 +20,11 @@ public class TestResult
         _numOfQuestions = questions;
     }
 
+    public float GetScore()
+    {
+        return (float)_correctAnswers / _numOfQuestions;
+    }
+
     public override string ToString()
     {
         return $"{_correctAnswers} correct out of {_numOfQuestions}";
