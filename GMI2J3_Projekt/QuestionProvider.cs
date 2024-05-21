@@ -25,6 +25,9 @@ public class QuestionProvider : IQuestionProvider
         if(num > 20)
         {
             throw new Exception("Too many questions requested");
+        } else if(num < 1)
+        {
+            throw new Exception("Must request at least one question");
         }
 
         ICollection<PracticeQuestion> questions = _questionReader.GetQuestions();
@@ -50,9 +53,13 @@ public class QuestionProvider : IQuestionProvider
     // Gets a set number of questions with only the core information, no correct answers provided. Used for test quiz
     public QuestionSet<TestQuestion> GetCoreQuestionSet(int num, string unit = "")
     {
-        if(num > 20)
+        if (num > 20)
         {
             throw new Exception("Too many questions requested");
+        }
+        else if (num < 1)
+        {
+            throw new Exception("Must request at least one question");
         }
 
         ICollection<PracticeQuestion> questions = _questionReader.GetQuestions();

@@ -11,7 +11,7 @@ public class Test_QuestionReaderFromFile
     public void LoadQuestions_ShouldReturnAllQuestions()
     {
         // Arrange
-        string testData = TestDataGenerator.GetTestData();
+        string testData = TestDataGenerator.GetTestDataString();
         var fileReader = new Mock<IFileReader>();
         fileReader.Setup(x => x.ReadAllText(It.IsAny<string>())).Returns(testData);
         QuestionReaderFromFile reader = new QuestionReaderFromFile(fileReader.Object);
