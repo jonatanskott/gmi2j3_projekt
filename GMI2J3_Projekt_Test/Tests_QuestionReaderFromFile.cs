@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GMI2J3_Projekt_Test;
-public class Test_QuestionReaderFromFile
+public class Tests_QuestionReaderFromFile
 {
     [Fact]
     public void LoadQuestions_ShouldReturnAllQuestions()

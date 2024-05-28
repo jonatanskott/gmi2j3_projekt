@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GMI2J3_Projekt;
-internal class QuizService : IQuizService
+public class QuizService : IQuizService
 {
     private IQuestionProvider _questionProvider;
     private ITestEvaluator _testEvaluator;

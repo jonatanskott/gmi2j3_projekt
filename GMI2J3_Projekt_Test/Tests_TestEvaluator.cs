@@ -101,4 +101,30 @@ public class Tests_TestEvaluator
         // Assert
         Assert.Equal(0f, result.GetScore());
     }
+
+    [Fact]
+    public void EvaluteTest_TooManyAnswersProvided()
+    {
+        // Arrange
+        var q1Id = Guid.NewGuid();
+
+        var o1Id = Guid.NewGuid();
+        var o2Id = Guid.NewGuid();
+        var o3Id = Guid.NewGuid();
+
+        var questionProvider = new Mock<IQuestionProvider>();
+        var testEvaluator = new TestEvaluator(questionProvider.Object);
+        var answers = new Dictionary<Guid, List<Guid>>();
+
+        var question = new PracticeQuestion(q1Id, "Q1", [new(o1Id, "O1", true), new(o2Id, "O1", true), new(o3Id, "O1", false)], "1.1");
+
+        questionProvider.Setup(x => x.GetQuestionById(q1Id)).Returns(question);
+        answers.Add(q1Id, [o1Id, o2Id, o3Id]);
+
+        // Act
+        var result = testEvaluator.EvaluateTest(answers);
+
+        // Assert
+        Assert.Equal(0f, result.GetScore());
+    }
 }

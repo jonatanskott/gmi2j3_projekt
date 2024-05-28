@@ -85,7 +85,7 @@ internal class Program
             Console.WriteLine($"Enter the number of the correct answer for question {i}");
             string? answer = Console.ReadLine() ?? throw new Exception("Invalid input");
 
-            List<int> choices = answer.Split(",").Select(x => int.Parse(x)).ToList();
+            List<int> choices = answer.Split(",").Select(int.Parse).ToList();
             answers.Add(testSet.Questions.ElementAt(i-1).QuestionId, choices.Select(x => testSet.Questions.ElementAt(i-1).Options.ElementAt(x-1).OptionId).ToList());
         }
         return answers;
@@ -116,7 +116,7 @@ internal class Program
                 return;
             }
             // User can input multiple answers separated by commas
-            List<int> choices = answer.Split(",").Select(x => int.Parse(x)).ToList();
+            List<int> choices = answer.Split(",").Select(int.Parse).ToList();
             // Awful looking way to get the correct answers, but it works. No more time will be spent here.
             List<Guid> correctAnswers = question.Options.Where(x => x.IsCorrect).Select(x => x.OptionId).ToList();
             if (choices.Select(x => question.Options.ElementAt(x-1).OptionId).SequenceEqual(correctAnswers))

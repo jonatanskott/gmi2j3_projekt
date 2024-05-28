@@ -82,11 +82,6 @@ public class QuestionProvider : IQuestionProvider
         return new QuestionSet<TestQuestion>(questionList.FindAll(x => x.Unit.StartsWith(unit)).OrderBy(x => Random.Shared.Next()).Take(num).ToList(), Guid.NewGuid());
     }
 
-    internal ICollection<PracticeQuestion> GetAllQuestions()
-    {
-        return _questionReader.GetQuestions();
-    }
-
     public PracticeQuestion? GetQuestionById(Guid id)
     {
         return _questionReader.GetQuestions().FirstOrDefault(x => x.QuestionId == id);

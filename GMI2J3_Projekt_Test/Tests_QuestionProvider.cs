@@ -120,4 +120,50 @@ public class Tests_QuestionProvider
         // Assert
         Assert.Equal(maxQuestions, result.Questions.Count);
     }
+
+    [Fact]
+    public void GetFullQuestions_TooMany_ShouldFail()
+    {
+        int maxQuestions = 20;
+
+        var questionReader = new Mock<IQuestionReader>();
+        var questionProvider = new QuestionProvider(questionReader.Object);
+        var questions = new List<PracticeQuestion>();
+
+        for (int i = 1; i <= 30; i++)
+        {
+            questions.Add(new(Guid.NewGuid(), $"Question {i}", [new PracticeOption(Guid.NewGuid(), "Option 1", true)], $"1.{i}"));
+        }
+
+        questionReader.Setup(x => x.GetQuestions()).Returns(questions);
+
+        Assert.Throws<Exception>(() => questionProvider.GetFullQuestionSet(maxQuestions + 1));
+    }
+
+    [Fact]
+    public void GetFullQuestions_ZeroQuestions_ShouldFail()
+    {
+
+        var questionReader = new Mock<IQuestionReader>();
+        var questionProvider = new QuestionProvider(questionReader.Object);
+
+
+
+        questionReader.Setup(x => x.GetQuestions()).Returns(TestDataGenerator.GetTestDataList());
+
+        Assert.Throws<Exception>(() => questionProvider.GetFullQuestionSet(0));
+    }
+
+    [Fact]
+    public void GetQuestionById_ShouldReturnCorrectQuestion()
+    {
+        var questions = TestDataGenerator.GetTestDataList();
+        var question = questions.First();
+
+        var questionReader = new Mock<IQuestionReader>();
+        questionReader.Setup(x => x.GetQuestions()).Returns(questions);
+        var questionProvider = new QuestionProvider(questionReader.Object);
+
+        Assert.Equal(question, questionProvider.GetQuestionById(question.QuestionId));
+    }
 }
